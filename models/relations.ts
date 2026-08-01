@@ -1,6 +1,7 @@
 import { type Sequelize } from 'sequelize'
 import { AddressModel } from './address'
 import { BasketModel } from './basket'
+import { OrderModel } from './order'
 import { BasketItemModel } from './basketitem'
 import { ChallengeModel } from './challenge'
 import { ChallengeDependencyModel } from './challengeDependency'
@@ -37,6 +38,14 @@ const relationsInit = (_sequelize: Sequelize) => {
       name: 'UserId'
     }
   })
+  OrderModel.belongsTo(UserModel, {
+    constraints: true,
+    foreignKeyConstraint: true,
+    foreignKey: {
+      name: 'UserId'
+    }
+  })
+
   BasketModel.belongsToMany(ProductModel, {
     through: BasketItemModel,
     as: 'Products',
